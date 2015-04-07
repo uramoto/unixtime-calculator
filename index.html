@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<!--
+	Design:
+    Aerial by HTML5 UP
+    html5up.net | @n33co
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>UNIXTIME Calculator</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="robots" content="noindex, nofollow">
+		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+		<script src="js/skel.min.js"></script>
+		<script src="js/init.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-wide.css" />
+			<link rel="stylesheet" href="css/style-noscript.css" />
+		</noscript>
+		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+  	<link rel="stylesheet" href="css/toastr.min.css" />
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <script src="js/strtotime.js"></script>
+    <script src="js/date.js"></script>
+    <script src="js/toastr.min.js"></script>
+    <style>
+      button {
+        background: transparent;
+        color: #FFF;
+        border: none;
+        margin: 2px 5px;
+        padding: 0 6px;
+      }
+      input {
+        background: rgba(255, 255, 255, 0.9);
+        color: #000;
+        border: 1px solid #FFF;
+        padding: 4px 6px;
+        font-size: 22px;
+        font-family: monospace;
+      }
+      td {
+        vertical-align: middle;
+        text-align: center;
+      }
+    </style>
+    <script>
+      var format = "Y/n/j H:i:s";
+
+      toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "500",
+        "timeOut": "2000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+      };
+
+      $(function(){
+        $inputUnix = $("#input-unix");
+        $inputDate = $("#input-date");
+        $btnUnix2Date = $("#btn-unix2date");
+        $btnDate2Unix = $("#btn-date2unix");
+
+        // init
+        var nowTime = strtotime("now");
+        $inputUnix.val(nowTime);
+        $inputDate.val(date(format, nowTime));
+
+        // click
+        var unix2date = function() {
+          $inputDate.val(date(format, $inputUnix.val()));
+          toastr.success("Done.");
+          return false;
+        };
+        var date2unix = function() {
+          $inputUnix.val(Math.floor(strtotime($inputDate.val())));
+          toastr.success("Done.");
+          return false;
+        };
+        $btnUnix2Date.click(unix2date);
+        $btnDate2Unix.click(date2unix);
+
+        // noop
+        $("nav a").click(function(ev) {
+          return false;
+        });
+      });
+    </script>
+	</head>
+	<body class="loading">
+		<div id="wrapper">
+			<div id="bg"></div>
+			<div id="overlay"></div>
+			<div id="main">
+
+				<!-- Header -->
+					<header id="header">
+						<h1>UNIXTIME Calculator</h1>
+            <p>unixtime / string</p>
+            <section>
+              <table style="margin: 0 auto;">
+                <tr>
+                  <td>
+                    <input id="input-unix" type="text" value="">
+                  </td>
+                  <td>
+                    <button id="btn-unix2date"><i class="fa fa-arrow-right"></i></button>
+                    <br>
+                    <button id="btn-date2unix"><i class="fa fa-arrow-left"></i></button>
+                  </td>
+                  <td>
+                    <input id="input-date" type="text" value="">
+                  </td>
+                </tr>
+              </table>
+            </section>
+
+            <br>
+            <br>
+
+						<nav>
+							<ul>
+								<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+								<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+								<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+								<li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<span class="copyright">&copy; 2015 DJ uraura. &nbsp; Design by <a href="http://html5up.net" target="_blank">HTML5 UP</a>.</span>
+					</footer>
+				
+			</div>
+		</div>
+	</body>
+</html>
